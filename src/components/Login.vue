@@ -2,17 +2,17 @@
     <div class="login_container">
         <div class="login_box">
             <div class="acatar_box">
-                <img src="../assets/logo.png" alt="">
+                <img v-image-preview src="../assets/avatar.jpg" alt="">
             </div>
             <!-- 登录表单区域 -->
-        <el-form :model="LoginForm" :rules="LoginFormRules" ref="resetFormRef" label-width="0px" class="login_from">
+        <el-form :model="LoginForm" :rules="LoginFormRules" ref="resetFormRef" label-width="70px" class="login_from">
             <!-- 用户名 -->
-            <el-form-item prop="username">
+            <el-form-item prop="username" label="账号">
               <el-input prefix-icon="iconfont icon-user" v-model="LoginForm.username"></el-input>
             </el-form-item>
             <!-- 密码 -->
-            <el-form-item prop="password">
-              <el-input prefix-icon="iconfont icon-3702mima" v-model="LoginForm.password" type="password"></el-input>
+            <el-form-item prop="password" label="密码:">
+              <el-input prefix-icon="iconfont icon-3702mima" show-password v-model="LoginForm.password" type="password"></el-input>
             </el-form-item>
             <!-- 按钮区域 -->
             <el-form-item class="btns">
@@ -47,16 +47,16 @@ export default {
   },
   methods: {
     resetForm (resetFormRef) {
-      console.log(this)
+      // console.log(this)
       // 重置文本框的内容resetFileds()
       this.$refs[resetFormRef].resetFields()
     },
     loginFrom (resetFormRef) {
       this.$refs[resetFormRef].validate(async item => {
-        console.log(item)
+        // console.log(item)
         if (!item) return
         const { data: res } = await this.$http.post('login', this.LoginForm)
-        console.log('res', res)
+        // console.log('res', res)
         if (res.meta.status !== 200) {
           this.$message({
             message: '登陆失败',
@@ -80,14 +80,15 @@ export default {
 
 <style lang="less" scoped>
 .login_container{
-    background-color: #2b4b6b;
+    background-image: url('../assets/bg.jpg');
+    background-size:100%;
     height: 100%;
 }
 .login_box{
     width: 450px;
     height: 300px;
-    background-color: #fff;
-    border-radius: 3px;
+    background-color: #3bc0d1;
+    border-radius: 5px;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -95,7 +96,7 @@ export default {
     .acatar_box{
         height: 130px;
         width: 130px;
-        border:1px solid #eee;
+        border:1px solid #ccc;
         border-radius: 50%;
         padding: 10px;
         box-shadow: 0 0 10px #ddd;
@@ -121,5 +122,8 @@ export default {
 .btns{
     display:flex;
     justify-content: center;
+}
+img{
+  cursor: pointer;
 }
 </style>
