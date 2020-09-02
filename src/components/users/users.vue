@@ -11,22 +11,22 @@
       <!--  -->
       <el-row :gutter="20">
         <el-col :span="7">
-          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getUserList">
-            <el-button slot="append" @click="getUserList" icon="el-icon-search"></el-button>
+          <el-input @clear="getUserList" clearable placeholder="请输入内容" v-model="queryInfo.query">
+            <el-button @click="getUserList" icon="el-icon-search" slot="append"></el-button>
           </el-input>
         </el-col>
         <el-col :span="6">
-          <el-button type="primary" @click="adddialogVisible = true">添加用户</el-button>
+          <el-button @click="adddialogVisible = true" type="primary">添加用户</el-button>
         </el-col>
       </el-row>
       <!--  -->
       <el-table :data="userList" border stripe>
-        <el-table-column type="index" label="#"></el-table-column>
-        <el-table-column prop="username" label="姓名"></el-table-column>
-        <el-table-column prop="email" label="邮箱"></el-table-column>
-        <el-table-column prop="mobile" label="电话"></el-table-column>
-        <el-table-column prop="role_name" label="角色"></el-table-column>
-        <el-table-column prop="mg_state" label="状态">
+        <el-table-column label="#" type="index"></el-table-column>
+        <el-table-column label="姓名" prop="username"></el-table-column>
+        <el-table-column label="邮箱" prop="email"></el-table-column>
+        <el-table-column label="电话" prop="mobile"></el-table-column>
+        <el-table-column label="角色" prop="role_name"></el-table-column>
+        <el-table-column label="状态" prop="mg_state">
           <template slot-scope="scope">
             <el-switch @change="userStateChange(scope.row)" v-model="scope.row.mg_state"></el-switch>
           </template>
@@ -34,35 +34,55 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <!-- 修改按钮 -->
-            <el-button type="primary" icon="el-icon-edit" size="mini" @click="showUser(scope.row.id)"></el-button>
+            <el-button
+              @click="showUser(scope.row.id)"
+              icon="el-icon-edit"
+              size="mini"
+              type="primary"
+            ></el-button>
             <!-- 删除按钮 -->
-            <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
+            <el-button
+              @click="removeUserById(scope.row.id)"
+              icon="el-icon-delete"
+              size="mini"
+              type="danger"
+            ></el-button>
             <!-- 分配角色按钮 -->
-            <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="mini" @click="setRole(scope.row)"></el-button>
+            <el-tooltip :enterable="false" content="分配角色" effect="dark" placement="top">
+              <el-button
+                @click="setRole(scope.row)"
+                icon="el-icon-setting"
+                size="mini"
+                type="warning"
+              ></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
       <!-- 分页功能 -->
       <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
         :current-page="queryInfo.pagenum"
-        :page-sizes="[1, 2, 5, 10]"
         :page-size="queryInfo.pagesize"
-        layout="total, sizes, prev, pager, next, jumper"
+        :page-sizes="[1, 2, 5, 10]"
         :total="total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        layout="total, sizes, prev, pager, next, jumper"
       ></el-pagination>
     </el-card>
     <!-- 添加用户对话框 -->
-    <el-dialog title="添加用户" :visible.sync="adddialogVisible" width="50%" @closed="AddDialogClose('addFormRef')">
-      <el-form :model="addFrom" :rules="addFromRules" ref="addFormRef" label-width="70px">
+    <el-dialog
+      :visible.sync="adddialogVisible"
+      @closed="AddDialogClose('addFormRef')"
+      title="添加用户"
+      width="50%"
+    >
+      <el-form :model="addFrom" :rules="addFromRules" label-width="70px" ref="addFormRef">
         <el-form-item label="用户名" prop="username">
           <el-input v-model="addFrom.username"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input v-model="addFrom.password" type="password" show-password></el-input>
+          <el-input show-password type="password" v-model="addFrom.password"></el-input>
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="addFrom.email"></el-input>
@@ -71,16 +91,21 @@
           <el-input v-model="addFrom.mobile"></el-input>
         </el-form-item>
       </el-form>
-      <span slot="footer" class="dialog-footer">
+      <span class="dialog-footer" slot="footer">
         <el-button @click="adddialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addUser('addFormRef')">确 定</el-button>
+        <el-button @click="addUser('addFormRef')" type="primary">确 定</el-button>
       </span>
     </el-dialog>
     <!-- 修改用户对话框 -->
-<el-dialog title="用户" :visible.sync="editdialogVisible" width="50%" @closed="EditDialogClose('editFormRef')">
-      <el-form :model="editFrom" :rules="editFromRules" ref="editFormRef" label-width="70px">
+    <el-dialog
+      :visible.sync="editdialogVisible"
+      @closed="EditDialogClose('editFormRef')"
+      title="用户"
+      width="50%"
+    >
+      <el-form :model="editFrom" :rules="editFromRules" label-width="70px" ref="editFormRef">
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="editFrom.username" disabled=""></el-input>
+          <el-input disabled v-model="editFrom.username"></el-input>
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
           <el-input v-model="editFrom.email"></el-input>
@@ -89,29 +114,37 @@
           <el-input v-model="editFrom.mobile"></el-input>
         </el-form-item>
       </el-form>
-      <span slot="footer" class="dialog-footer">
+      <span class="dialog-footer" slot="footer">
         <el-button @click="editdialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editUser('editFormRef')">确 定</el-button>
+        <el-button @click="editUser('editFormRef')" type="primary">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%" @close="setRoleDialogClosed">
-         <div>
+    <el-dialog
+      :visible.sync="setRoleDialogVisible"
+      @close="setRoleDialogClosed"
+      title="分配角色"
+      width="50%"
+    >
+      <div>
         <p>当前的用户：{{userInfo.username}}</p>
         <p>当前的角色：{{userInfo.role_name}}</p>
-        <p>分配新角色：
-          <el-select v-model="selectedRoleId" placeholder="请选择">
-            <el-option v-for="item in roleslist" :key="item.id"
-            :label="item.roleName"
-            :value="item.id">
-            </el-option>
+        <p>
+          分配新角色：
+          <el-select placeholder="请选择" v-model="selectedRoleId">
+            <el-option
+              :key="item.id"
+              :label="item.roleName"
+              :value="item.id"
+              v-for="item in roleslist"
+            ></el-option>
           </el-select>
         </p>
-         </div>
-        <span class="dialog-footer" slot="footer">
+      </div>
+      <span class="dialog-footer" slot="footer">
         <el-button @click="setRoleDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveUserInfo">确 定</el-button>
+        <el-button @click="saveUserInfo" type="primary">确 定</el-button>
       </span>
-      </el-dialog>
+    </el-dialog>
   </div>
 </template>
 
@@ -250,7 +283,7 @@ export default {
     // 添加用户
     addUser (addFormRef) {
       // 表单预校验
-      this.$refs[addFormRef].validate(async item => {
+      this.$refs[addFormRef].validate(async (item) => {
         if (!item) return
         // 验证成功 发送请求
         const { data: res } = await this.$http.post('users', this.addFrom)
@@ -294,9 +327,12 @@ export default {
     },
     // 提交修改
     editUser (editFormRef) {
-      this.$refs[editFormRef].validate(async item => {
+      this.$refs[editFormRef].validate(async (item) => {
         if (!item) return
-        const { data: res } = await this.$http.put('users/' + this.editFrom.id, this.editFrom)
+        const { data: res } = await this.$http.put(
+          'users/' + this.editFrom.id,
+          this.editFrom
+        )
         console.log(res)
         if (res.meta.status !== 200) {
           return
@@ -316,7 +352,7 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
-        callback: async action => {
+        callback: async (action) => {
           if (action === 'confirm') {
             await this.$http.delete('users/' + id)
             this.$message({
