@@ -7,6 +7,7 @@ import users from '../components/users/users.vue'
 import rights from '../components/rights/rights.vue'
 import roles from '../components/roles/roles.vue'
 import goodscate from '../components/goods/goodscate.vue'
+import parmas from '../components/goods/parmas.vue'
 
 Vue.use(VueRouter)
 
@@ -50,6 +51,11 @@ const routes = [
         path: '/categories',
         name: 'goodscate',
         component: goodscate
+      },
+      {
+        path: '/params',
+        name: 'parmas',
+        component: parmas
       }
     ]
   }

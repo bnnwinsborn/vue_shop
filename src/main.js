@@ -9,8 +9,10 @@ import TreeTable from 'vue-table-with-tree-grid'
 
 // 导入
 import '../src/assets/fonts/iconfont.css'
+import '../src/assets/icons/iconfont.css'
 // 导入全局样式
 import '../src/assets/css/global.css'
+
 // 导入axios
 import axios from 'axios'
 Vue.use(VueDirectiveImagePreviewer)

@@ -1,27 +1,47 @@
 <template>
-    <div class="login_container">
-        <div class="login_box">
-            <div class="acatar_box">
-                <img v-image-preview src="../assets/avatar.jpg" alt="">
-            </div>
-            <!-- 登录表单区域 -->
-        <el-form :model="LoginForm" :rules="LoginFormRules" ref="resetFormRef" label-width="70px" class="login_from">
-            <!-- 用户名 -->
-            <el-form-item prop="username" label="账号">
-              <el-input prefix-icon="iconfont icon-user" v-model="LoginForm.username"></el-input>
-            </el-form-item>
-            <!-- 密码 -->
-            <el-form-item prop="password" label="密码:">
-              <el-input prefix-icon="iconfont icon-3702mima" show-password v-model="LoginForm.password" type="password"></el-input>
-            </el-form-item>
-            <!-- 按钮区域 -->
-            <el-form-item class="btns">
-                <el-button type="primary" @click="loginFrom('resetFormRef')">登录</el-button>
-                <el-button type="info" @click="resetForm('resetFormRef')">重置</el-button>
-            </el-form-item>
-        </el-form>
-         </div>
+  <div class="login_container">
+    <div class="login_box">
+      <div class="acatar_box">
+        <img alt src="../assets/avatar.jpg" v-image-preview />
+        <p>GLA电商后台管理系统</p>
+      </div>
+
+      <!-- 登录表单区域 -->
+      <el-form
+        :model="LoginForm"
+        :rules="LoginFormRules"
+        class="login_from"
+        label-width="70px"
+        ref="resetFormRef"
+      >
+        <!-- 用户名 -->
+        <el-form-item label="账号:" prop="username">
+          <el-input prefix-icon="iconfont icon-user" v-model="LoginForm.username"></el-input>
+        </el-form-item>
+        <!-- 密码 -->
+        <el-form-item label="密码:" prop="password">
+          <el-input
+            prefix-icon="iconfont icon-3702mima"
+            show-password
+            type="password"
+            v-model="LoginForm.password"
+          ></el-input>
+        </el-form-item>
+        <!-- 按钮区域 -->
+        <el-form-item class="btns">
+          <el-button @click="loginFrom('resetFormRef')" round type="primary">登录</el-button>
+          <el-button @click="resetForm('resetFormRef')" round type="info">重置</el-button>
+        </el-form-item>
+      </el-form>
     </div>
+    <div class="welcome_box">
+      <div class="one">Welcome</div>
+      <div class="two">GLA全球电商平台，全球重大项目物流一站式解决方案</div>
+    </div>
+    <div class="icon">
+      <i prefix-icon="iconfont icon-pingguo"></i>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -79,51 +99,68 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.login_container{
-    background-image: url('../assets/bg.jpg');
-    background-size:100%;
-    height: 100%;
+.login_container {
+  background-image: url('../assets/bg.jpg');
+  background-size: 100%;
+  height: 100%;
 }
-.login_box{
-    width: 450px;
-    height: 300px;
-    background-color: #3bc0d1;
-    border-radius: 5px;
+.login_box {
+  width: 400px;
+  height: 100%;
+  background-color: #fff;
+  // border-radius: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  .acatar_box {
+    height: 165px;
+    width: 165px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0 0 10px #ddd;
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    .acatar_box{
-        height: 130px;
-        width: 130px;
-        border:1px solid #ccc;
-        border-radius: 50%;
-        padding: 10px;
-        box-shadow: 0 0 10px #ddd;
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        background-color: #fff;
-        img{
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background-color: #eee;
-        }
+    top: 25%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: #eee;
     }
+  }
 }
-.login_from{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 0 20px;
-    box-sizing: border-box;
+.login_from {
+  position: absolute;
+  bottom: 20%;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
-.btns{
-    display:flex;
-    justify-content: center;
+.btns {
+  display: flex;
+  justify-content: center;
 }
-img{
+img {
   cursor: pointer;
+}
+.welcome_box {
+  color: #66b1ff;
+  position: absolute;
+  top: 10%;
+  right: 30%;
+  .one {
+    font-size: 60px;
+    padding-left: 10px;
+  }
+}
+.icon {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: #fff;
+  font-size: 30pxx;
 }
 </style>

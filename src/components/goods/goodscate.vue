@@ -73,11 +73,11 @@
           <el-input v-model="addCateFrom.cat_name"></el-input>
         </el-form-item>
         <el-form-item label="父级分类">
+          <!-- change-on-select -->
           <el-cascader
             :options="parentlist"
             :props="cascaderProps"
             @change="handleCascaderChange"
-            change-on-select
             clearable
             v-model="selectParentCateKeys"
           ></el-cascader>
