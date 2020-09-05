@@ -8,6 +8,9 @@ import rights from '../components/rights/rights.vue'
 import roles from '../components/roles/roles.vue'
 import goodscate from '../components/goods/goodscate.vue'
 import parmas from '../components/goods/parmas.vue'
+import goodslist from '../components/goods/goodslist.vue'
+import add from '../components/goods/add.vue'
+import edit from '../components/goods/edit.vue'
 
 Vue.use(VueRouter)
 
@@ -56,6 +59,21 @@ const routes = [
         path: '/params',
         name: 'parmas',
         component: parmas
+      },
+      {
+        path: '/goods',
+        name: 'goodslist',
+        component: goodslist
+      },
+      {
+        path: '/goods/add',
+        name: 'add',
+        component: add
+      },
+      {
+        path: '/goods/edit',
+        name: 'edit',
+        component: edit
       }
     ]
   }
