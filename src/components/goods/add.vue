@@ -72,6 +72,7 @@
           <el-tab-pane label="商品图片" name="3">
             <el-upload
               :action="url"
+              :file-list="fileList"
               :headers="headersObj"
               :on-preview="handlePreview"
               :on-remove="handleRemove"

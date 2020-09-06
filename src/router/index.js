@@ -11,6 +11,7 @@ import parmas from '../components/goods/parmas.vue'
 import goodslist from '../components/goods/goodslist.vue'
 import add from '../components/goods/add.vue'
 import edit from '../components/goods/edit.vue'
+import order from '../components/order/order.vue'
 
 Vue.use(VueRouter)
 
@@ -74,6 +75,11 @@ const routes = [
         path: '/goods/edit',
         name: 'edit',
         component: edit
+      },
+      {
+        path: '/orders',
+        name: 'order',
+        component: order
       }
     ]
   }
